@@ -23,6 +23,20 @@ public class SimpleLinkedList {
         }
 
     public void addLast(Object object){
+        if(root == null){
+            addFirst(object);
+        }
+        else{
+            Node n=root;
+            while (n.node!=null){
+                n=n.node;
+            }
+            Node node = new Node();
+            node.o = object;
+            n.node = node;
+            size++;
+        }
+
 
     }
 
