@@ -41,7 +41,19 @@ public class SimpleLinkedList {
     }
 
     public void addAfter(Object object1, Object object2){
-
+        Node n = new Node();
+        n.o = object2;
+        Node n1 = root;int i = 0;
+        while (!(n1.o.equals(object1))){
+            n1 = n1.node;
+            i++;
+            if(i>=size){
+                throw new IllegalStateException("Needed object wasn't found.");
+            }
+        }
+        n.node = n1.node;
+        n1.node = n;
+        size++;
     }
 
     public int getSize() {
