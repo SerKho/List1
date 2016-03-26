@@ -98,11 +98,11 @@ public class SimpleLinkedList implements Iterable<Object>{
         public Object next() {
             if(n==null && root!=null){
                 n=root;
-                return n;
+                return n.o;
             }
             if(hasNext()){
                  n = n.node;
-                return n;
+                return n.o;
             }
             throw new IllegalStateException("That was the last element in current list.");
         }
