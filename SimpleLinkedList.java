@@ -79,10 +79,39 @@ public class SimpleLinkedList implements Iterable<Object>{
         return size;
     }
 
-    public Iterator<Object> iterator(){
-        return new SLLIterator();
+
+
+    public void remove(Object n){
+        Node prev = root;int i = 0;
+        for(SLLIterator it = (SLLIterator) this.iterator(); it.hasNext();){
+            Object o = it.next();
+            i++;
+            if(o.equals(n)){
+                if(i==1){
+                    root = root.node;
+                    size--;
+                    return;
+                }
+                else{
+                    if(i==size){
+                        it.n.node = null;
+                        size--;
+                        return;
+                    }
+                    prev.node = it.n.node;
+                    size--;
+                    return;
+                }
+            }
+            prev = it.prev;
+        }
+        throw new IllegalStateException("Object wasn't found in the list.");
     }
 
+    @Override
+    public Iterator<Object> iterator() {
+        return new SLLIterator();
+    }
 
     private class Node {
         private Object o;
@@ -91,6 +120,7 @@ public class SimpleLinkedList implements Iterable<Object>{
 
     private class SLLIterator implements Iterator<Object>{
         Node n;
+        Node prev = root;
 
         public SLLIterator(){}
 
@@ -98,18 +128,19 @@ public class SimpleLinkedList implements Iterable<Object>{
         public Object next() {
             if(n==null && root!=null){
                 n=root;
-                return n;
+                return n.o;
             }
             if(hasNext()){
+                 prev = n;
                  n = n.node;
-                return n;
+                return n.o;
             }
             throw new IllegalStateException("That was the last element in current list.");
         }
 
         @Override
         public boolean hasNext() {
-            return (n!=null && n.node!=null);
+            return (n==null && root!=null)||(n!=null && n.node!=null);
         }
     }
 }
