@@ -14,6 +14,6 @@ public class Comparator implements java.util.Comparator{
 
         String s1 = o1.toString();
         String s2 = o2.toString();
-        return s1.compareTo(s2);
+        return -1*(s1.compareTo(s2));
     }
 }
